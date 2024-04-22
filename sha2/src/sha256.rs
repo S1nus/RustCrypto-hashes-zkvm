@@ -1,10 +1,10 @@
 use digest::{generic_array::GenericArray, typenum::U64};
 
 cfg_if::cfg_if! {
-    if #[cfg(all(target_os = "zkvm", target_vendor = "succinct"))] {
+    if #[cfg(all(target_os = "zkvm", target_arch="riscv32", target_vendor = "succinct"))] {
         mod sp1;
         use sp1::compress;
-    } else if #[cfg(all(target_os = "zkvm", target_arch = "riscv32"))] {
+    } else if #[cfg(all(target_os = "zkvm", target_arch = "riscv32", target_vendor = "risc0"))] {
         mod risc0;
         use risc0::compress;
     } else if #[cfg(feature = "force-soft")] {
